@@ -7,8 +7,10 @@ Created on Tue Nov 15 09:16:12 2016
 
 import pandas as pd
 import numpy as np
+
 from scipy.stats.mstats import mode
 from sklearn.preprocessing import LabelEncoder
+
 train = pd.read_csv('train.csv')
 test = pd.read_csv('test.csv')
 severity_type = pd.read_csv('severity_type.csv')
@@ -80,7 +82,7 @@ log_merge = log.pivot_table(
     values='volume', index='id', columns='preprocess', aggfunc=np.sum, fill_value=0)
 data = data.merge(log_merge, left_on='id', right_index=True)
 print(data.head())
-# REsOURCE_TYPE:
+# RESOURCE_TYPE:
 resource_type = resource_type.merge(
     data[['id', 'fault_severity', 'source']], on='id')
 resource_type_unq = pd.DataFrame(resource_type['resource_type'].value_counts())
